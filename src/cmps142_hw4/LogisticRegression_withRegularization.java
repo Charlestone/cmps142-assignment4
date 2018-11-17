@@ -36,6 +36,7 @@ public class LogisticRegression_withRegularization {
 
         /** TODO: Implement the sigmoid function **/
         private static double sigmoid(double z) {
+        	return (1/( 1 + Math.pow(Math.E,(-1*z))));
         }
 
         /** TODO: Helper function for prediction **/
