@@ -85,6 +85,8 @@ public class LogisticRegression {
 
             /** TODO: Constructor for initializing the Instance object **/
             public LRInstance(int label, double[] x) {
+            	this.label = label;
+            	this.x = x.clone();
             }
         }
 
