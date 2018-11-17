@@ -19,13 +19,15 @@ public class LogisticRegression_withBias {
 
         /** TODO: Constructor initializes the weight vector. Initialize it by setting it to the 0 vector. **/
         public LogisticRegression_withBias(int n) { // n is the number of weights to be learned
-        	weights = new double [n];
+        	//The first element is the bias term
+        	weights = new double [n+1];
         }
 
         /** TODO: Implement the function that returns the L2 norm of the weight vector **/
         private double weightsL2Norm(){
         	double sum = 0;
-        	for (int i = 0; i < weights.length; i++) {
+        	//The first element is the bias term
+        	for (int i = 1; i < weights.length; i++) {
         		sum += weights[i] * weights[i];
         	} 
         	return Math.sqrt(sum);
@@ -33,6 +35,7 @@ public class LogisticRegression_withBias {
 
         /** TODO: Implement the sigmoid function **/
         private static double sigmoid(double z) {
+        	
         }
 
         /** TODO: Helper function for prediction **/
@@ -85,6 +88,14 @@ public class LogisticRegression_withBias {
 
             /** TODO: Constructor for initializing the Instance object **/
             public LRInstance(int label, double[] x) {
+            	this.label = label;
+            	for (int i = 0;i < x.length + 1;i++) {
+            		if (i == 0) {
+            			this.x[i] = 1;
+            		} else {
+            			this.x[i] = x[i-1];
+            		}
+            	}
             }
         }
 
