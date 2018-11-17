@@ -43,12 +43,21 @@ public class LogisticRegression_withRegularization {
         /** Takes a test instance as input and outputs the probability of the label being 1 **/
         /** This function should call sigmoid() **/
         private double probPred1(double[] x) {
+        	double dot_prod = 0;
+        	for(int i = 0;i < weights.length;i++) {
+        		dot_prod += weights[i] * x[i];
+        	}
+        	return sigmoid(dot_prod);
         }
 
         /** TODO: The prediction function **/
         /** Takes a test instance as input and outputs the predicted label **/
         /** This function should call probPred1() **/
         public int predict(double[] x) {
+        	if (probPred1(x) >= 0.5) {
+        		return 1;
+        	}
+        	return 0;
         }
 
         /** This function takes a test set as input, call the predict() to predict a label for it, and prints the accuracy, P, R, and F1 score of the positive class and negative class and the confusion matrix **/
