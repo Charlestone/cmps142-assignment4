@@ -82,7 +82,7 @@ public class LogisticRegression_withRegularization {
 						//If not
 					} else {
 						//We add a False positive
-						FP++;
+						FN++;
 					}
 				//If the label is 0
 				} else {
@@ -92,7 +92,7 @@ public class LogisticRegression_withRegularization {
 						TN++;
 					} else {
 						//We add a False negative
-						FN++;
+						FP++;
 					}
 				}
             }
@@ -128,8 +128,15 @@ public class LogisticRegression_withRegularization {
                 double lik = 0.0; // Stores log-likelihood of the training data for this iteration
                 for (int i=0; i < instances.size(); i++) {
                     // TODO: Train the model
-
+                	for(int j = 0;j < weights.length;j++) {
+                		weights[j] = weights[j] + (rate * instances.get(i).x[j] * (instances.get(i).label - probPred1(instances.get(i).x))) - (rate * lambda * weights[j]);
+                	}
                     // TODO: Compute the log-likelihood of the data here. Remember to take logs when necessary
+                	double dot_prod = 0;
+                	for(int k = 0;k < weights.length;k++) {
+                		dot_prod += weights[k] * instances.get(i).x[k];
+                	}
+                	lik += instances.get(i).label * dot_prod - Math.log(1 + Math.pow(Math.E,(dot_prod)));
 				}
                 System.out.println("iteration: " + n + " lik: " + lik);
             }
