@@ -19,20 +19,24 @@ public class LogisticRegression {
 
         /** TODO: Constructor initializes the weight vector. Initialize it by setting it to the 0 vector. **/
         public LogisticRegression(int n) { // n is the number of weights to be learned
+        	//We set the length of the weights
         	weights = new double [n];
         }
 
         /** TODO: Implement the function that returns the L2 norm of the weight vector **/
         private double weightsL2Norm(){
         	double sum = 0;
+        	//For each weight in the vector, we add it to the power of two
         	for (int i = 0; i < weights.length; i++) {
         		sum += weights[i] * weights[i];
         	} 
+        	//We return the square root of the sum of the sum of squares
         	return Math.sqrt(sum);
         }
 
         /** TODO: Implement the sigmoid function **/
         private static double sigmoid(double z) {
+        	//We return the sigmoid for the parameter
         	return (1/( 1 + Math.pow(Math.E,(-1*z))));
         }
 
@@ -41,9 +45,11 @@ public class LogisticRegression {
         /** This function should call sigmoid() **/
         private double probPred1(double[] x) {
         	double dot_prod = 0;
+        	//We dod the dot product of w and x for an instance
         	for(int i = 0;i < weights.length;i++) {
         		dot_prod += weights[i] * x[i];
         	}
+        	//We return the sigmoid of the dot product
         	return sigmoid(dot_prod);
         }
 
@@ -51,9 +57,11 @@ public class LogisticRegression {
         /** Takes a test instance as input and outputs the predicted label **/
         /** This function should call probPred1() **/
         public int predict(double[] x) {
+        	//If the sigmoid value for the instance is greater or equal than 0.5, we return 1.
         	if (probPred1(x) >= 0.5) {
         		return 1;
         	}
+        	//If it is not, we return 0
         	return 0;
         }
 
@@ -65,7 +73,48 @@ public class LogisticRegression {
             int TP=0, TN=0, FP=0, FN=0; // TP = True Positives, TN = True Negatives, FP = False Positives, FN = False Negatives
 
             // TODO: write code here to compute the above mentioned variables
-
+            //For each instance
+            for (LRInstance instance: testInstances) {
+            	int prediction = predict(instance.x);
+            	//If the label is 1
+            	if (instance.label == 1) {
+            		//And the predicted label is equal to the actual label
+					if (prediction == instance.label) {
+						//We add a True positive
+						TP++;
+						//If not
+					} else {
+						//We add a False positive
+						FP++;
+					}
+				//If the label is 0
+				} else {
+					//And the predicted label is equal to the actual label
+					if (prediction == instance.label) {
+						//We add a True negative
+						TN++;
+					} else {
+						//We add a False negative
+						FN++;
+					}
+				}
+            }
+            //Once we have checked all the instances we calculate some values:
+            //Accuracy
+            acc = (TN + TP)/(TP + TN + FP + FN);
+            //Precision of positives
+            p_pos = TP/(TP + FP);
+            //Precision of negatives
+            p_neg = TN/(TN + FN);
+            //Recall of positives
+            r_pos = TP/(TP + FN);
+            //Recall of negatives
+            r_neg = TN/(TN + FP);
+            //F score of positives
+            f_pos = (2 * p_pos * r_pos)/(p_pos + r_pos);
+            //F score of negatives
+            f_neg = (2 * p_neg * r_neg)/(p_neg + r_neg);
+            
             System.out.println("Accuracy="+acc);
             System.out.println("P, R, and F1 score of the positive class=" + p_pos + " " + r_pos + " " + f_pos);
             System.out.println("P, R, and F1 score of the negative class=" + p_neg + " " + r_neg + " " + f_neg);

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import cmps142_hw4.LogisticRegression.LRInstance;
+
 public class LogisticRegression_withBias {
 
         /** the learning rate */
@@ -67,7 +69,48 @@ public class LogisticRegression_withBias {
             int TP=0, TN=0, FP=0, FN=0; // TP = True Positives, TN = True Negatives, FP = False Positives, FN = False Negatives
 
             // TODO: write code here to compute the above mentioned variables
-
+            //For each instance
+            for (LRInstance instance: testInstances) {
+            	int prediction = predict(instance.x);
+            	//If the label is 1
+            	if (instance.label == 1) {
+            		//And the predicted label is equal to the actual label
+					if (prediction == instance.label) {
+						//We add a True positive
+						TP++;
+						//If not
+					} else {
+						//We add a False positive
+						FP++;
+					}
+				//If the label is 0
+				} else {
+					//And the predicted label is equal to the actual label
+					if (prediction == instance.label) {
+						//We add a True negative
+						TN++;
+					} else {
+						//We add a False negative
+						FN++;
+					}
+				}
+            }
+            //Once we have checked all the instances we calculate some values:
+            //Accuracy
+            acc = (TN + TP)/(TP + TN + FP + FN);
+            //Precision of positives
+            p_pos = TP/(TP + FP);
+            //Precision of negatives
+            p_neg = TN/(TN + FN);
+            //Recall of positives
+            r_pos = TP/(TP + FN);
+            //Recall of negatives
+            r_neg = TN/(TN + FP);
+            //F score of positives
+            f_pos = (2 * p_pos * r_pos)/(p_pos + r_pos);
+            //F score of negatives
+            f_neg = (2 * p_neg * r_neg)/(p_neg + r_neg);
+            
             System.out.println("Accuracy="+acc);
             System.out.println("P, R, and F1 score of the positive class=" + p_pos + " " + r_pos + " " + f_pos);
             System.out.println("P, R, and F1 score of the negative class=" + p_neg + " " + r_neg + " " + f_neg);
