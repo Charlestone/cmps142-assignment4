@@ -6,7 +6,7 @@ To make the files work, they should be a part of a java project and they should 
 Next, we are going to clarify certain aspects of our implementation for a Logistic Regression classifier.
 
 - General
-	For the whole implementation we are going to consider as positive instances those who belong to the spam class (label 1).
+	
 - LogisticRegression.java
 
 - LogisticRegression_withBias.java
