@@ -70,7 +70,7 @@ public class LogisticRegression {
             double acc = 0;
             double p_pos = 0, r_pos = 0, f_pos = 0;
             double p_neg = 0, r_neg = 0, f_neg = 0;
-            int TP=0, TN=0, FP=0, FN=0; // TP = True Positives, TN = True Negatives, FP = False Positives, FN = False Negatives
+            double TP=0, TN=0, FP=0, FN=0; // TP = True Positives, TN = True Negatives, FP = False Positives, FN = False Negatives
 
             // TODO: write code here to compute the above mentioned variables
             //For each instance
