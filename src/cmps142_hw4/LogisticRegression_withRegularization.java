@@ -17,7 +17,7 @@ public class LogisticRegression_withRegularization {
         private double[] weights;
 
 		/** the regularization coefficient */
-        private double lambda = 0.001;
+        private double lambda = 10;
 
         /** the number of iterations */
         private int ITERATIONS = 200;
@@ -128,8 +128,9 @@ public class LogisticRegression_withRegularization {
                 double lik = 0.0; // Stores log-likelihood of the training data for this iteration
                 for (int i=0; i < instances.size(); i++) {
                     // TODO: Train the model
+                	double p_hat = probPred1(instances.get(i).x);
                 	for(int j = 0;j < weights.length;j++) {
-                		weights[j] = weights[j] + (rate * instances.get(i).x[j] * (instances.get(i).label - probPred1(instances.get(i).x))) - (rate * lambda * weights[j]);
+                		weights[j] = weights[j] + (rate * instances.get(i).x[j] * (instances.get(i).label - p_hat)) - (rate * lambda * weights[j]);
                 	}
                     // TODO: Compute the log-likelihood of the data here. Remember to take logs when necessary
                 	double dot_prod = 0;
